@@ -6,14 +6,13 @@ class MpoGenusStanza < TogoStanza::Stanza::Base
 	PREFIX mpo:  <http://purl.jp/bio/01/mpo#>
 	PREFIX taxonomy:  <http://ddbj.nig.ac.jp/ontologies/taxonomy/>
 
-	SELECT distinct ?genus count(*) as ?cnt
+	SELECT distinct ?genus ?list2 count(*) as ?cnt
 	from <http://togogenome.org/graph/taxonomy>
 	from <http://togogenome.org/graph/gold>
 	from <http://togogenome.org/graph/mpo>
 	where{
 		?list rdfs:subClassOf* mpo:#{mpo} .
 		?subject ?pre ?list .
-		OPTIONAL { ?subject rdfs:label ?title } .
 		bind('http://identifiers.org/taxonomy/' as ?identifer) .
 		filter( contains(str(?subject),?identifer) ) .
 
@@ -23,7 +22,7 @@ class MpoGenusStanza < TogoStanza::Stanza::Base
 			?list2 rdfs:label ?genus
 		}
 	}
-	group by ?genus
+	group by ?genus ?list2
 	order by desc(?cnt)
     SPARQL
     

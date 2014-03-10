@@ -16,7 +16,7 @@ nv.models.pieChart = function() {
     , tooltips = true
     , tooltip = function(key, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + '</p>'
+               '<p>' +  Math.round(y) + '</p>'
       }
     , state = {}
     , defaultState = null
