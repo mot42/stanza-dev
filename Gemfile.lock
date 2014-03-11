@@ -1,4 +1,10 @@
 PATH
+  remote: ./mpo_environment_stanza
+  specs:
+    mpo_environment_stanza (0.0.1)
+      togostanza
+
+PATH
   remote: ./mpo_genus_stanza
   specs:
     mpo_genus_stanza (0.0.1)
