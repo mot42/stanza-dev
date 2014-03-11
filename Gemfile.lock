@@ -98,6 +98,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  mpo_environment_stanza!
   mpo_genus_stanza!
   my_inf_stanza!
   togostanza
