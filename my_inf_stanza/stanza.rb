@@ -5,7 +5,7 @@ class MyInfStanza < TogoStanza::Stanza::Base
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX mpo:  <http://purl.jp/bio/01/mpo#>
     
-    SELECT distinct ?subject ?taxonomy_id ?title
+    SELECT distinct ?subject ?taxonomy_id ?title Group_Concat(?pheno,', ') as ?pheno_merged
     from <http://togogenome.org/graph/taxonomy>
     from <http://togogenome.org/graph/gold>
     from <http://togogenome.org/graph/mpo>
@@ -13,11 +13,12 @@ class MyInfStanza < TogoStanza::Stanza::Base
       ?list rdfs:subClassOf* mpo:#{mpo} .
       ?subject ?pre ?list .
       OPTIONAL { ?subject rdfs:label ?title } .
+      OPTIONAL { ?list rdfs:label ?pheno . filter( lang(?pheno) != "ja" )}
       bind('http://identifiers.org/taxonomy/' as ?identifer) .
-      bind( replace(str(?subject), ?identifer, '') as ?taxonomy_id )
+      bind( replace(str(?subject), ?identifer, '') as ?taxonomy_id ) .
       filter( contains(str(?subject),?identifer) )
     }
-    order by ?subject
+    order by ?title
     SPARQL
     
     query(SPARQL_ENDPOINT_URL, query);

@@ -1,4 +1,28 @@
 PATH
+  remote: ./gmo_genus_stanza
+  specs:
+    gmo_genus_stanza (0.0.1)
+      togostanza
+
+PATH
+  remote: ./gmo_applied_spices_stanza
+  specs:
+    gmo_applied_spices_stanza (0.0.1)
+      togostanza
+
+PATH
+  remote: ./gmo_components_stanza
+  specs:
+    gmo_components_stanza (0.0.1)
+      togostanza
+
+PATH
+  remote: ./gmo_general_stanza
+  specs:
+    gmo_general_stanza (0.0.1)
+      togostanza
+
+PATH
   remote: ./mpo_environment_stanza
   specs:
     mpo_environment_stanza (0.0.1)
@@ -98,7 +122,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  mpo_environment_stanza!
+  gmo_genus_stanza!
+  gmo_applied_spices_stanza!
+  gmo_components_stanza!
+  gmo_general_stanza!
   mpo_genus_stanza!
   my_inf_stanza!
   togostanza

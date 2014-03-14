@@ -33,11 +33,11 @@
 				}
 			}
 			else if(data[i].key == ""){
-				data[i].key = "(No Label)";
+				data[i].key = "(No Data)";
 			}
 		}
 		if(etcIndex !== null && item !== null){
-			item.key = "(No Environment)";
+			item.key = "(Unknown)";
 			item.nolinked = true;
 			data.splice(etcIndex,1);
 			data.push(item);
@@ -79,19 +79,10 @@
 			<svg class="piechart"></svg>
 			<script>
 			var colors = d3.scale.category20().range();
-			//var color1 = d3.scale.category10();
-			//var color2 = d3.scale.category20();
-			//var color3 = d3.scale.category20b();
-			//var color4 = d3.scale.category20c();
-			//var cl = color1.range();
-			//colors = cl.concat( color2.range() );
-			//colors = colors.concat( color3.range() );
-			//colors = colors.concat( color4.range() );
 			
 			nv.addGraph(function() {
 				var width = 500;
 				var height = 500;
-				
 				
 				var chart = nv.models.pieChart()
 				    .x(function(d) { return d.key })

@@ -12,21 +12,18 @@
   </head>
 
   <body>
-<div>
 <table class="table">
 <thead>
-<tr><th>Organism Name</th><th>Taxonomy ID</th><th>Phenotype</th></tr>
+<tr><th>Organism Name</th><th>Taxonomy ID</th></tr>
 </thead>
 <tbody>
 {{#each features}}
 <tr>
-<td><a href="http://togogenome.org/organism/{{taxonomy_id}}" target="_top">{{#if title}}{{title}}{{else}}(No Data){{/if}}</a></td>
+<td><a href="http://togogenome.org/organism/{{taxonomy_id}}" target="_top">{{title}}</a></td>
 <td><a href="{{subject}}" target="_blank">{{taxonomy_id}}</a></td>
-<td>{{pheno_merged}}</td>
 </tr>
 {{/each}}
 </tbody>
 </table>
-</div>
   </body>
 </html>
