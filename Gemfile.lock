@@ -126,6 +126,7 @@ DEPENDENCIES
   gmo_applied_spices_stanza!
   gmo_components_stanza!
   gmo_general_stanza!
+  mpo_environment_stanza!
   mpo_genus_stanza!
   my_inf_stanza!
   togostanza
