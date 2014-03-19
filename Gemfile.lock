@@ -1,4 +1,10 @@
 PATH
+  remote: ./gmo_approximation_stanza
+  specs:
+    gmo_approximation_stanza (0.0.1)
+      togostanza
+
+PATH
   remote: ./gmo_genus_stanza
   specs:
     gmo_genus_stanza (0.0.1)
@@ -122,12 +128,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  gmo_approximation_stanza!
   gmo_genus_stanza!
   gmo_applied_spices_stanza!
   gmo_components_stanza!
   gmo_general_stanza!
-  mpo_environment_stanza!
-  mpo_genus_stanza!
+  mpo_environment_stanza!  mpo_genus_stanza!
   my_inf_stanza!
   togostanza
   unicorn

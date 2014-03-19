@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Medium Approximation List</title>
+    {{#each css_uri}}
+    <link rel="stylesheet" type="text/css" href="{{this}}" />
+    {{/each}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+    {{adjust_iframe_height_script}}
+  </head>
+
+  <body>
+<div>
+<table class="table">
+<caption>{{medium_information.med_id}}{{#if medium_information.desc}} : {{medium_information.desc}}{{/if}}</caption>
+<thead>
+	<tr>
+		<th>Medium ID</th>
+		<th>Title</th>
+{{#if debug_mode}}
+		<th>Index(k)</th>
+		<th>Target(m)</th>
+		<th>Original(n)</th>
+		<th>Score(2k/(m+n))</th>
+{{else}}
+		<th>Score</th>
+{{/if}}
+	</tr>
+</thead>
+<tbody>
+{{#each medium_score}}
+	<tr>
+		<td><a href="{{subject}}" target="_top">{{medium_id}}</a></td>
+		<td><a href="/stanza/gmo_general?med_id={{medium_id}}">{{#if title}}{{title}}{{else}}(No Data){{/if}}</a></td>
+{{#if ../debug_mode}}
+		<td>{{index2}}</td>
+		<td>{{count2}}</td>
+		<td>{{original}}</td>
+{{/if}}
+		<td>{{score}}%</td>
+	</tr>
+{{/each}}
+</tbody>
+</table>
+</div>
+  </body>
+</html>
