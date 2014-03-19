@@ -13,7 +13,6 @@ class GmoAppliedSpicesStanza < TogoStanza::Stanza::Base
 				bind('http://identifiers.org/taxonomy/' as ?identifer) .
 				bind( replace(str(?tax), ?identifer, '') as ?taxonomy_id ) .
 				filter( contains(str(?tax),?identifer) )
-				filter( contains(str(?tax),?identifer) )
 			}
 			order by ?label
 		SPARQL
