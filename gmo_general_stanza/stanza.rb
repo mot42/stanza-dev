@@ -3,7 +3,7 @@ class GmoGeneralStanza < TogoStanza::Stanza::Base
 		medium_list = query("http://ep.dbcls.jp/sparql71dev", <<-SPARQL.strip_heredoc)
 		PREFIX gmo: <http://purl.jp/bio/11/gmo#>
 
-		SELECT DISTINCT ?medium_id ?medium_type_label ?medium_name
+		SELECT DISTINCT ?medium ?medium_id ?medium_type_label ?medium_name
 		FROM <http://togogenome.org/graph/brc>
 		FROM <http://togogenome.org/graph/gmo>
 		WHERE
@@ -19,7 +19,7 @@ class GmoGeneralStanza < TogoStanza::Stanza::Base
 		ingredient_list = query("http://ep.dbcls.jp/sparql71dev", <<-SPARQL.strip_heredoc)
 		PREFIX mccv: <http://purl.jp/bio/01/mccv#>
 		PREFIX gmo: <http://purl.jp/bio/11/gmo#>
-		SELECT ?medium_id ?classification ?class_label ?ingredient_label
+		SELECT ?medium_id ?classification ?class_label ?ingredient_label ?link_pubchem ?link_chebi ?link_snomedct ?link_mesh ?link_wikipedia
 		FROM <http://togogenome.org/graph/brc>
 		FROM <http://togogenome.org/graph/gmo>
 		WHERE {
@@ -28,6 +28,11 @@ class GmoGeneralStanza < TogoStanza::Stanza::Base
 			?medium gmo:GMO_000104 ?ingredient .
 			?ingredient rdfs:subClassOf* ?classification .
 			?ingredient rdfs:label ?ingredient_label FILTER (lang(?ingredient_label) = "en") .
+			OPTIONAL{ ?ingredient rdfs:seeAlso ?link_pubchem   FILTER( contains(str(?link_pubchem)   ,'http://www.ncbi.nlm.nih.gov/pccompound/') ) . }
+			OPTIONAL{ ?ingredient rdfs:seeAlso ?link_chebi     FILTER( contains(str(?link_chebi)     ,'http://purl.obolibrary.org/obo/CHEBI_') ) . }
+			OPTIONAL{ ?ingredient rdfs:seeAlso ?link_snomedct  FILTER( contains(str(?link_snomedct)  ,'http://purl.bioontology.org/ontology/SNOMEDCT/') ) . }
+			OPTIONAL{ ?ingredient rdfs:seeAlso ?link_mesh      FILTER( contains(str(?link_mesh)      ,'http://purl.bioontology.org/ontology/MSH/') ) . }
+			OPTIONAL{ ?ingredient rdfs:seeAlso ?link_wikipedia FILTER( contains(str(?link_wikipedia) ,'http://en.wikipedia.org/') ) . }
 			?classification rdfs:label ?class_label .
 			filter( ?medium_id = "#{med_id}" )
 		}
@@ -38,18 +43,25 @@ class GmoGeneralStanza < TogoStanza::Stanza::Base
 		ingredients_classes = ["GMO_000015", "GMO_000016", "GMO_000008", "GMO_000009"]
 		result = medium_list.map {|hash|
 			row = []
-			row.push({:row_key => "Medium ID", :row_value => hash[:medium_id], :is_array => false})
-			row.push({:row_key => "Medium name", :row_value => hash[:medium_name], :is_array => false})
-			row.push({:row_key => "Medium type", :row_value => hash[:medium_type_label], :is_array => false})
+			row.push({:row_key => "Medium ID", :row_value => hash[:medium_id], :row_href => hash[:medium], :is_array => false})
+			row.push({:row_key => "Medium name", :row_value => hash[:medium_name], :row_href => "", :is_array => false})
+			row.push({:row_key => "Medium type", :row_value => hash[:medium_type_label], :row_href => "", :is_array => false})
 			
 			classed_ingredients = ingredients[hash[:medium_id]].group_by{|ingred| ingred[:classification].split("#").last}
 			ingredients_classes.each{ |classes|
 				classification = classed_ingredients[classes]
 				next unless classification
 				
-				listrow = {:row_key => classification.at(0).fetch(:class_label,""), :row_value => [], :is_array => true}
+				listrow = {:row_key => classification.at(0).fetch(:class_label,""), :row_value => [], :row_href => [], :is_array => true}
 				classification.each{|ingres|
-					listrow[:row_value].push(ingres[:ingredient_label])
+					listrow[:row_value].push({
+						:label => ingres[:ingredient_label],
+						:pubchem => ingres[:link_pubchem],
+						:chebi => ingres[:link_chebi],
+						:snomedct => ingres[:link_snomedct],
+						:mesh => ingres[:link_mesh],
+						:wikipedia => ingres[:link_wikipedia],
+					})
 				}
 				row.push(listrow)
 			}
