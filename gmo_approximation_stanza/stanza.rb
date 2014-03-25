@@ -14,8 +14,12 @@ class GmoApproximationStanza < TogoStanza::Stanza::Base
 			}
 		SPARQL
 		result = query(SPARQL_ENDPOINT_URL, query);
-		result.first[:med_id] = med_id
-		result.first
+		if result.empty? then
+			[]
+		else
+			result.first[:med_id] = med_id
+			result.first
+		end
 	end
 	property :medium_score do |med_id|
 		# Score List
