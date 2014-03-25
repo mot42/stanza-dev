@@ -1,4 +1,10 @@
 PATH
+  remote: ./approximation_tsv_stanza
+  specs:
+    approximation_tsv_stanza (0.0.1)
+      togostanza
+
+PATH
   remote: ./gmo_approximation_stanza
   specs:
     gmo_approximation_stanza (0.0.1)
@@ -128,6 +134,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  approximation_tsv_stanza!
   gmo_approximation_stanza!
   gmo_genus_stanza!
   gmo_applied_spices_stanza!
