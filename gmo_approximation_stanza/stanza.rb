@@ -130,6 +130,12 @@ class GmoApproximationStanza < TogoStanza::Stanza::Base
 			scorelist.delete_if{|item| udlist.index(item[:subject]) == nil }
 		end
 		
+		# format number (ex. 12.0)
+		scorelist.map{|item|
+			item[:score] = sprintf('%.1f',item[:score])
+			item
+		}
+		
 		scorelist
 	end
 end
