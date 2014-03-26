@@ -75,11 +75,15 @@
 				width: 500px;
 				height: 500px;
 			}
+			#piechart div.graph-caption {
+				text-align:center;
+			}
 		</style>
 	</head>
 	<body>
 		<!-- Pie Chart -->
 		<div id="piechart" class="with-3d-shadow with-transitions">
+			{{#if general}}<div class="graph-caption">{{general.label}}</div>{{/if}}
 			<svg class="piechart"></svg>
 			<script>
 			var colors = d3.scale.category20().range();
