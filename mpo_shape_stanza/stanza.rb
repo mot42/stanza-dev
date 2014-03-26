@@ -1,6 +1,6 @@
 class MpoShapeStanza < TogoStanza::Stanza::Base
 	SPARQL_ENDPOINT_URL = 'http://ep.dbcls.jp/sparql71dev';
-	property :features do |mpo|
+	property :features do |mpo_id|
 		query = <<-SPARQL.strip_heredoc
 			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 			PREFIX mpo:  <http://purl.jp/bio/01/mpo#>
@@ -8,9 +8,9 @@ class MpoShapeStanza < TogoStanza::Stanza::Base
 			SELECT distinct ?label ?definition ?altlabel
 			from <http://togogenome.org/graph/mpo>
 			where{
-				mpo:#{mpo} rdfs:label ?label.
-				OPTIONAL { mpo:#{mpo} skos:definition ?definition. filter(lang(?definition) != "ja") }
-				OPTIONAL { mpo:#{mpo} skos:altLabel ?altlabel. filter(lang(?altlabel) != "ja") }
+				mpo:#{mpo_id} rdfs:label ?label.
+				OPTIONAL { mpo:#{mpo_id} skos:definition ?definition. filter(lang(?definition) != "ja") }
+				OPTIONAL { mpo:#{mpo_id} skos:altLabel ?altlabel. filter(lang(?altlabel) != "ja") }
 				filter(lang(?label) != "ja")
 			}
 		SPARQL

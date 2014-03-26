@@ -1,6 +1,6 @@
 class MyInfStanza < TogoStanza::Stanza::Base
   SPARQL_ENDPOINT_URL = 'http://ep.dbcls.jp/sparql71dev';
-  property :features do |mpo|
+  property :features do |mpo_id|
     query = <<-SPARQL.strip_heredoc
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX mpo:  <http://purl.jp/bio/01/mpo#>
@@ -10,7 +10,7 @@ class MyInfStanza < TogoStanza::Stanza::Base
     from <http://togogenome.org/graph/gold>
     from <http://togogenome.org/graph/mpo>
     where{
-      ?list rdfs:subClassOf* mpo:#{mpo} .
+      ?list rdfs:subClassOf* mpo:#{mpo_id} .
       ?subject ?pre ?list .
       OPTIONAL { ?subject rdfs:label ?title } .
       OPTIONAL { ?list rdfs:label ?pheno . filter( lang(?pheno) != "ja" )}

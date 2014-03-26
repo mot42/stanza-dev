@@ -1,6 +1,6 @@
 class MpoEnvironmentStanza < TogoStanza::Stanza::Base
   SPARQL_ENDPOINT_URL = 'http://ep.dbcls.jp/sparql71dev';
-  property :features do |mpo|
+  property :features do |mpo_id|
     query = <<-SPARQL.strip_heredoc
 	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 	PREFIX mpo:  <http://purl.jp/bio/01/mpo#>
@@ -13,7 +13,7 @@ class MpoEnvironmentStanza < TogoStanza::Stanza::Base
 	from <http://togogenome.org/graph/mpo>
 	from <http://togogenome.org/graph/meo>
 	where{
-		?list rdfs:subClassOf* mpo:#{mpo} .
+		?list rdfs:subClassOf* mpo:#{mpo_id} .
 		?subject ?pre ?list .
 		bind('http://identifiers.org/taxonomy/' as ?identifer) .
 		filter( contains(str(?subject),?identifer) ) .
