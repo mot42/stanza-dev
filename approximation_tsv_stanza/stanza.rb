@@ -1,6 +1,6 @@
 class ApproximationTsvStanza < TogoStanza::Stanza::Base
 	SPARQL_ENDPOINT_URL = 'http://ep.dbcls.jp/sparql71dev';
-	property :medium_score do |med_id|
+	property :medium_score do |medium_id|
 		# Score List
 		query = <<-SPARQL.strip_heredoc
 			PREFIX gmo: <http://purl.jp/bio/11/gmo#>
@@ -13,7 +13,7 @@ class ApproximationTsvStanza < TogoStanza::Stanza::Base
 					select ?subject ?medium_id ?title sum(?found) as ?index where {
 					select ?subject ?medium_id ?title ?list max(?found_src) as ?found
 						where {
-							?key gmo:GMO_000101 "#{med_id}" .
+							?key gmo:GMO_000101 "#{medium_id}" .
 							?subject gmo:GMO_000101 ?medium_id .
 							?subject gmo:GMO_000104 ?list .
 							MINUS { ?key gmo:GMO_000104 ?list }
@@ -29,7 +29,7 @@ class ApproximationTsvStanza < TogoStanza::Stanza::Base
 							{
 								select distinct ?search_keys
 								where {
-									?brc gmo:GMO_000101 "#{med_id}" .
+									?brc gmo:GMO_000101 "#{medium_id}" .
 									?brc gmo:GMO_000104 ?s .
 									?s rdfs:subClassOf* ?cla .
 									filter( isURI(?cla) && ?cla in (gmo:GMO_000015,gmo:GMO_000016) )
@@ -45,7 +45,7 @@ class ApproximationTsvStanza < TogoStanza::Stanza::Base
 				}
 				UNION {
 					select ?subject ?medium_id ?title sum(?found) as ?index where {
-						?key gmo:GMO_000101 "#{med_id}" .
+						?key gmo:GMO_000101 "#{medium_id}" .
 						?key gmo:GMO_000104 ?list .
 						?list rdfs:subClassOf* ?cla .
 						filter( isURI(?cla) && ?cla in (gmo:GMO_000015,gmo:GMO_000016) )
@@ -59,7 +59,7 @@ class ApproximationTsvStanza < TogoStanza::Stanza::Base
 				} .
 				OPTIONAL {
 					select count(distinct ?oriobj) as ?original where {
-						?orisub gmo:GMO_000101 "#{med_id}" .
+						?orisub gmo:GMO_000101 "#{medium_id}" .
 						?orisub gmo:GMO_000104 ?oriobj .
 						?oriobj rdfs:subClassOf* ?cla .
 						filter( isURI(?cla) && ?cla in (gmo:GMO_000015,gmo:GMO_000016) )
@@ -81,7 +81,7 @@ class ApproximationTsvStanza < TogoStanza::Stanza::Base
 		query = <<-SPARQL.strip_heredoc
 			PREFIX gmo: <http://purl.jp/bio/11/gmo#>
 			select distinct count(?brc) as ?c {
-				?brc gmo:GMO_000101 "#{med_id}" .
+				?brc gmo:GMO_000101 "#{medium_id}" .
 				?brc gmo:GMO_000104 ?gmo .
 				?gmo rdfs:subClassOf* gmo:GMO_000016 .
 			}
