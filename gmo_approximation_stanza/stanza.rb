@@ -26,7 +26,7 @@ class GmoApproximationStanza < TogoStanza::Stanza::Base
 		query = <<-SPARQL.strip_heredoc
 			PREFIX gmo: <http://purl.jp/bio/11/gmo#>
 			PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-			select ?subject ?medium_id ?title ?index as ?index2 count(?object) as ?count2 ?original (round((2.0*?index)/(count(?object)+?original)*10000.0)/100) as ?score
+			select ?subject ?medium_id ?title ?index as ?index2 count(?object) as ?count2 ?original (round((2.0*?index)/(count(?object)+?original)*1000.0)/10.0) as ?score
 			from <http://togogenome.org/graph/brc>
 			from <http://togogenome.org/graph/gmo>
 			where {
