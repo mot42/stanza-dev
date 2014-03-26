@@ -23,9 +23,9 @@ PATH
       togostanza
 
 PATH
-  remote: ./gmo_general_stanza
+  remote: ./medium_components_stanza
   specs:
-    gmo_general_stanza (0.0.1)
+    medium_components_stanza (0.0.1)
       togostanza
 
 PATH
@@ -138,7 +138,7 @@ DEPENDENCIES
   gmo_approximation_stanza!
   gmo_genus_stanza!
   gmo_applied_spices_stanza!
-  gmo_general_stanza!
+  medium_components_stanza!
   mpo_shape_stanza!
   mpo_environment_stanza!
   mpo_genus_stanza!

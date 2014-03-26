@@ -1,5 +1,5 @@
-Gmo General
-===========
+Medium Components
+=================
 
 TODO: Write a stanza description
 
@@ -19,4 +19,4 @@ TODO: Write a stanza description
 
 The above `<div>` will automatically embed the following Stanza in your HTML page.
 
-<div data-stanza="/stanza/gmo_general"></div>
+<div data-stanza="/stanza/medium_components"></div>

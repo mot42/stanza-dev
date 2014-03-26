@@ -1,4 +1,4 @@
-class GmoGeneralStanza < TogoStanza::Stanza::Base
+class MediumComponentsStanza < TogoStanza::Stanza::Base
 	property :medium_information do |medium_id|
 		medium_list = query("http://ep.dbcls.jp/sparql71dev", <<-SPARQL.strip_heredoc)
 		PREFIX gmo: <http://purl.jp/bio/11/gmo#>
