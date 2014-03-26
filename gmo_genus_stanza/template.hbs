@@ -146,7 +146,7 @@
 				
 				var keyItem = $("<td />");
 				if(!data[i].nolinked){
-					var keyAnchor = $("<a />");
+					var keyAnchor = $('<a target="_blank" />');
 					keyAnchor.attr("href",data[i].href);
 					keyAnchor.text(data[i].key);
 					keyAnchor.appendTo(keyItem);
