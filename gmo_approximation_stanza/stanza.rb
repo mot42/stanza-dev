@@ -17,7 +17,7 @@ class GmoApproximationStanza < TogoStanza::Stanza::Base
 		if result.empty? then
 			[]
 		else
-			result.first[:med_id] = med_id
+			result.first[:med_id] = medium_id
 			result.first
 		end
 	end
