@@ -8,10 +8,12 @@ class MpoShapeStanza < TogoStanza::Stanza::Base
 			SELECT distinct ?label ?definition ?altlabel
 			from <http://togogenome.org/graph/mpo>
 			where{
-				mpo:#{mpo_id} rdfs:label ?label.
-				OPTIONAL { mpo:#{mpo_id} skos:definition ?definition. filter(lang(?definition) != "ja") }
-				OPTIONAL { mpo:#{mpo_id} skos:altLabel ?altlabel. filter(lang(?altlabel) != "ja") }
+				?subject rdfs:label ?label.
+				?subject rdfs:subClassOf* mpo:MPO_01000.
+				OPTIONAL { ?subject skos:definition ?definition. filter(lang(?definition) != "ja") }
+				OPTIONAL { ?subject skos:altLabel ?altlabel. filter(lang(?altlabel) != "ja") }
 				filter(lang(?label) != "ja")
+				filter(?subject = mpo:#{mpo_id})
 			}
 		SPARQL
 		
