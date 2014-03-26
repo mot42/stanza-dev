@@ -1,5 +1,5 @@
 class GmoGeneralStanza < TogoStanza::Stanza::Base
-	property :medium_information do |med_id|
+	property :medium_information do |medium_id|
 		medium_list = query("http://ep.dbcls.jp/sparql71dev", <<-SPARQL.strip_heredoc)
 		PREFIX gmo: <http://purl.jp/bio/11/gmo#>
 
@@ -12,14 +12,14 @@ class GmoGeneralStanza < TogoStanza::Stanza::Base
 			?medium gmo:GMO_000111 ?medium_type .
 			?medium_type rdfs:label ?medium_type_label FILTER (lang(?medium_type_label) = "en") .
 			OPTIONAL { ?medium gmo:GMO_000102 ?medium_name } .
-			filter( ?medium_id = "#{med_id}" )
+			filter( ?medium_id = "#{medium_id}" )
 		}
 		SPARQL
 		
 		ingredient_list = query("http://ep.dbcls.jp/sparql71dev", <<-SPARQL.strip_heredoc)
 		PREFIX mccv: <http://purl.jp/bio/01/mccv#>
 		PREFIX gmo: <http://purl.jp/bio/11/gmo#>
-		SELECT ?medium_id ?classification ?class_label ?ingredient_label ?link_pubchem ?link_chebi ?link_snomedct ?link_mesh ?link_wikipedia
+		SELECT ?medium_id ?classification ?class_label ?ingredient as ?ingredient_id ?ingredient_label ?link_pubchem ?link_chebi ?link_snomedct ?link_mesh ?link_wikipedia
 		FROM <http://togogenome.org/graph/brc>
 		FROM <http://togogenome.org/graph/gmo>
 		WHERE {
@@ -34,9 +34,10 @@ class GmoGeneralStanza < TogoStanza::Stanza::Base
 			OPTIONAL{ ?ingredient rdfs:seeAlso ?link_mesh      FILTER( contains(str(?link_mesh)      ,'http://purl.bioontology.org/ontology/MSH/') ) . }
 			OPTIONAL{ ?ingredient rdfs:seeAlso ?link_wikipedia FILTER( contains(str(?link_wikipedia) ,'http://en.wikipedia.org/') ) . }
 			?classification rdfs:label ?class_label .
-			filter( ?medium_id = "#{med_id}" )
+			filter( ?medium_id = "#{medium_id}" )
 		}
 		GROUP BY ?medium_id ?classification ?class_label
+		ORDER BY ?class_label ?ingredient_label
 		SPARQL
 		
 		ingredients = ingredient_list.group_by {|hash| hash[:medium_id] }
@@ -48,6 +49,28 @@ class GmoGeneralStanza < TogoStanza::Stanza::Base
 			row.push({:row_key => "Medium type", :row_value => hash[:medium_type_label], :row_href => "", :is_array => false})
 			
 			classed_ingredients = ingredients[hash[:medium_id]].group_by{|ingred| ingred[:classification].split("#").last}
+			
+			# Defined components delete (Solidifying components and Water)
+			if classed_ingredients["GMO_000015"] then
+				classed_ingredients["GMO_000015"].delete_if{ |item|
+					ret_solid = classed_ingredients["GMO_000008"].any?{ |d| item[:ingredient_id] == d[:ingredient_id] } if classed_ingredients["GMO_000008"]
+					ret_water = classed_ingredients["GMO_000009"].any?{ |d| item[:ingredient_id] == d[:ingredient_id] } if classed_ingredients["GMO_000009"]
+					ret_solid || ret_water
+				}
+			end
+			
+			# Undefined components delete (Solidifying components and Water)
+			if classed_ingredients["GMO_000016"] then
+				classed_ingredients["GMO_000016"].delete_if{ |item|
+					ret_solid = classed_ingredients["GMO_000008"].any?{ |d| item[:ingredient_id] == d[:ingredient_id] } if classed_ingredients["GMO_000008"]
+					ret_water = classed_ingredients["GMO_000009"].any?{ |d| item[:ingredient_id] == d[:ingredient_id] } if classed_ingredients["GMO_000009"]
+					ret_solid || ret_water
+				}
+			end
+			
+			# empty hash key is delete
+			classed_ingredients.delete_if{|key,val| val.empty? }
+			
 			ingredients_classes.each{ |classes|
 				classification = classed_ingredients[classes]
 				next unless classification
