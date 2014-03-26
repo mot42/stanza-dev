@@ -19,14 +19,10 @@
 	<tr>
 		<th>Medium ID</th>
 		<th>Medium name</th>
-{{#if debug_mode}}
-		<th>Index(k)</th>
-		<th>Target(m)</th>
-		<th>Original(n)</th>
-		<th>Score(2k/(m+n))</th>
-{{else}}
-		<th>Score</th>
-{{/if}}
+		<th>#components<br/>(matched): k</th>
+		<th>#components<br/>(target): m</th>
+		<th>#components<br/>(query): n</th>
+		<th>Similarity score:<br/>2k/(m + n)</th>
 	</tr>
 </thead>
 <tbody>
@@ -34,11 +30,9 @@
 	<tr>
 		<td><a href="{{subject}}" target="_top">{{medium_id}}</a></td>
 		<td><a href="/stanza/gmo_general?med_id={{medium_id}}">{{#if title}}{{title}}{{else}}(No Data){{/if}}</a></td>
-{{#if ../debug_mode}}
 		<td>{{index2}}</td>
 		<td>{{count2}}</td>
 		<td>{{original}}</td>
-{{/if}}
 		<td>{{score}}%</td>
 	</tr>
 {{/each}}
