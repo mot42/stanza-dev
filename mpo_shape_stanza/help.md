@@ -7,9 +7,9 @@ phenotype's (with shaped, arrengement) visualizetion.
 
 (* = required)
 
-| Name             | Description                         |
-|------------------|-------------------------------------|
-| *data-stanza-foo | TODO: Write a parameter description |
+| Name                | Description               |
+|---------------------|---------------------------|
+| *data-stanza-mpo-id | Phenotype(MPO) identifier (e.g., MPO_01003) |
 
 ## Sample:
 

@@ -7,9 +7,9 @@ Phenotype-based organism count list and group by environment.
 
 (* = required)
 
-| Name             | Description                         |
-|------------------|-------------------------------------|
-| *data-stanza-foo | TODO: Write a parameter description |
+| Name                | Description               |
+|---------------------|---------------------------|
+| *data-stanza-mpo-id | Phenotype(MPO) identifier (e.g., MPO_01003) |
 
 ## Sample:
 
