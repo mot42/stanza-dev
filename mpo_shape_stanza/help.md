@@ -1,7 +1,7 @@
-Mpo Shape
+Shape Information
 =========
+phenotype's (with shaped, arrengement) visualizetion.
 
-TODO: Write a stanza description
 
 ## Parameters:
 
@@ -14,9 +14,9 @@ TODO: Write a stanza description
 ## Sample:
 
 ```html
-<div data-stanza="<stanza url>"></div>
+<div data-stanza="http://stanza-dev.herokuapp.com/stanza/mpo_shape" data-stanza-mpo-id="MPO_01003"></div>
 ```
 
 The above `<div>` will automatically embed the following Stanza in your HTML page.
 
-<div data-stanza="/stanza/mpo_shape"></div>
+<div data-stanza="/stanza/mpo_shape" data-stanza-mpo-id="MPO_01003"></div>

@@ -1,22 +1,22 @@
-Approximation Tsv
+Approximation TSB
 =================
+Medium to medium relevance ratio. (format=TSV)
 
-TODO: Write a stanza description
 
 ## Parameters:
 
 (* = required)
 
-| Name             | Description                         |
-|------------------|-------------------------------------|
-| *data-stanza-foo | TODO: Write a parameter description |
+| Name                   | Description                         |
+|------------------------|-------------------------------------|
+| *data-stanza-medium-id | Medium identifier (e.g., NBRC_M231) |
 
 ## Sample:
 
 ```html
-<div data-stanza="<stanza url>"></div>
+<div data-stanza="http://stanza-dev.herokuapp.com/stanza/approximation_tsv" data-stanza-medium-id="NRBC_M231"></div>
 ```
 
 The above `<div>` will automatically embed the following Stanza in your HTML page.
 
-<div data-stanza="/stanza/approximation_tsv"></div>
+<div data-stanza="/stanza/approximation_tsv" data-stanza-medium-id="NRBC_M231"></div>

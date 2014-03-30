@@ -1,22 +1,22 @@
-My Inf
+Organism List
 ======
+Organism list of having target phenotype. and groupping genus.
 
-TODO: Write a stanza description
 
 ## Parameters:
 
 (* = required)
 
-| Name             | Description                         |
-|------------------|-------------------------------------|
-| *data-stanza-foo | TODO: Write a parameter description |
+| Name                | Description               |
+|---------------------|---------------------------|
+| *data-stanza-mpo-id | Phenotype(MPO) identifier (e.g., MPO_01003) |
 
 ## Sample:
 
 ```html
-<div data-stanza="<stanza url>"></div>
+<div data-stanza="http://stanza-dev.herokuapp.com/stanza/my_inf" data-stanza-mpo-id="MPO_01003"></div>
 ```
 
 The above `<div>` will automatically embed the following Stanza in your HTML page.
 
-<div data-stanza="/stanza/my_inf"></div>
+<div data-stanza="/stanza/my_inf" data-stanza-mpo-id="MPO_01003"></div>
